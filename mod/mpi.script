@@ -1,0 +1,21 @@
+#!/bin/bash
+
+#SBATCH -J jcf              		# Job name
+#SBATCH -o job.%j.out         		# Name of stdout output file (%j expands to jobId)
+#SBATCH -N 1                  		# Total number of nodes requested
+#SBATCH -n 32                  		# Total number of mpi tasks requested
+#SBATCH -t 1:00:00           		# Run time (hh:mm:ss)
+#SBATCH --mail-user=markben@stanford.edu
+#SBATCH --mail-type=ALL
+
+PROG="/home/iaccarino/markben/codes/nalu/build/Nalu/build/naluX"
+ARGS="-i input.i -o output.log"
+
+module purge
+module load intel/19.1.0.166 impi/2018.2.199 gnu7/7.3.0 
+
+### ---------------------------------------
+### BEGINNING OF EXECUTION
+### ---------------------------------------
+
+mpiexec $PROG $ARGS
